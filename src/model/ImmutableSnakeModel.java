@@ -26,10 +26,18 @@ public interface ImmutableSnakeModel {
   int getGridSize();
 
   /**
-   * Determines whether the game is over or not.
+   * Determines whether the game is over or not. The game is over if the snake
+   * has bumped into the boundary or itself.
    * @return true if the game is over and false otherwise
    */
   boolean isGameOver();
+
+  /**
+   * Determines whether the game is won, meaning that the snake has grown to fill out
+   * the entirety of the screen.
+   * @return true if the game is won and false otherwise
+   */
+  boolean isGameWon();
 
   /**
    * Returns the location of the apple as a point.

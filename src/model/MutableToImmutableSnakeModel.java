@@ -31,6 +31,11 @@ public class MutableToImmutableSnakeModel implements ImmutableSnakeModel {
   }
 
   @Override
+  public boolean isGameWon() {
+    return adaptee.isGameWon();
+  }
+
+  @Override
   public Point getAppleLocation() {
     return adaptee.getAppleLocation();
   }

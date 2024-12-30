@@ -63,19 +63,30 @@ public class MutableSnakeModelImpl implements MutableSnakeModel {
       throw new IllegalStateException("Cannot move after game has ended.");
     }
     Coordinate newComponent = createNewComponent();
-    if (isOutOfBounds(newComponent)) {
+    if (isOutOfBounds(newComponent) || isOnTopOfItself(newComponent)) {
       this.gameOver = true;
       return;
     } else if (newComponent.equals(apple.getLocation())) {
-      apple.updateLocation();
+      apple.updateLocation(gridSize, gridSize);
       while(isAppleOnTopOfSnake()) {
-        apple.updateLocation();
+        apple.updateLocation(gridSize, gridSize);
       }
       numApplesEaten++;
     } else {
       components.remove(0);
     }
     components.add(newComponent);
+    System.out.println("Apple location: " + apple.getLocation().getX() + ", " + apple.getLocation().getY());
+  }
+
+  // Determines whether the given component intersects with an existing one
+  private boolean isOnTopOfItself(Coordinate newComponent) {
+    for (Coordinate component : components) {
+      if (newComponent.equals(component)) {
+        return true;
+      }
+    }
+    return false;
   }
 
   // Determines whether the apple has the same coordinate as a snake component.
@@ -159,6 +170,11 @@ public class MutableSnakeModelImpl implements MutableSnakeModel {
   @Override
   public boolean isGameOver() {
     return gameOver;
+  }
+
+  @Override
+  public boolean isGameWon() {
+    return components.size() == gridSize * gridSize;
   }
 
   @Override

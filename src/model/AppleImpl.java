@@ -13,12 +13,12 @@ class AppleImpl implements Apple {
   }
 
   @Override
-  public void updateLocation() {
+  public void updateLocation(int xBound, int yBound) {
     int newX = location.getX();
     int newY = location.getY();
     while (newX == location.getX() && newY == location.getY()) {
-      newX = (int) (Math.random() * 10) + 1;
-      newY = (int) (Math.random() * 10) + 1;
+      newX = (int) (Math.random() * xBound);
+      newY = (int) (Math.random() * yBound);
     }
     this.location = new CoordinateImpl(newX, newY);
   }
